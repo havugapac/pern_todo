@@ -1,8 +1,24 @@
 import React,{Fragment, useEffect, useState} from "react";
+import EditTodo from "./EditTodo";
 
 const ListTodo = () =>{
 
     const [todo, setTodo] = useState([]);
+
+
+    const deleteTodo = async(id) =>{
+
+      try{
+      
+    const deleteTodo = await fetch(`http://localhost:5000/todos/${id}`, {method: "DELETE"});
+
+    setTodo( todo.filter( todos => todos.todo_id !== id));
+
+      }catch(err)
+      {
+        console.error(err.message);
+      }
+    }
 
     const getTodo = async () =>{
       
@@ -43,10 +59,10 @@ return <Fragment>
         */}
 
         {todo.map( todos =>(
-            <tr>
+            <tr key={todos.todo_id}>
             <td>{todos.description}</td>
-            <td><button className="btn btn-primary">Edit</button></td>
-            <td><button className="btn btn-danger">Delete</button></td>
+            <td><button className="btn btn-primary"><EditTodo todos={todos}/></button></td>
+            <td><button className="btn btn-danger" onClick={() => deleteTodo(todos.todo_id)}>Delete</button></td>
           </tr>
         ))}
       
