@@ -9,6 +9,17 @@ const path = require('path');
 app.use(express.json());
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+//app.use(express.static("client/build")); /////works too
+
+if(process.env.NODE_ENV === "production"){
+   //server static content
+   app.use(express.static(path.join(__dirname, 'client/build')));
+   
+}
+// console.log(__dirname);
+// console.log(path.join(__dirname, 'client/build'));
+
 //Routes//
 
 //create a todo
@@ -88,17 +99,10 @@ app.delete('/todos/:id', async (req, res) =>{
     }
 })
 
-
-app.use(express.static(path.join(__dirname, 'client/build')));
-//app.use(express.static("client/build")); /////works too
-
-if(process.env.NODE_ENV === "production"){
-   //server static content
-   app.use(express.static(path.join(__dirname, 'client/build')));
-   
-}
-// console.log(__dirname);
-// console.log(path.join(__dirname, 'client/build'));
+//when someone tries to pass nonesense parameter
+app.get("*", (req, res) =>{
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+});
 
 
 const port = process.env.port || 3000;
