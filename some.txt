@@ -9,6 +9,21 @@ psql -U postgres, enter password
 \l :shows all databases
 \c name of db: connects to the db
 \dt :shows all tables in db
+\q:quit
+
+
+command to add free postgres to heroku app
+---------------------------------------------
+heroku addons:create heroku-postgresql:hobby-dev -a projectName
+
+command to connect to heroku postgres
+---------------------------------------------
+heroku pg:psql -a projectName
+
+command to use file's content like creating database in command without copy and paste
+-----------------------------------------------------------------
+cat file | heroku pg:psql -a projectName
+
 
 ------------------
 production
