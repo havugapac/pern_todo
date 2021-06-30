@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const pool = require('./db.js');
+const path = require('path');
 
 //middlewares
 app.use(express.json());
@@ -86,6 +87,18 @@ app.delete('/todos/:id', async (req, res) =>{
         console.error(err.message);
     }
 })
+
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+//app.use(express.static("client/build")); /////works too
+
+if(process.env.NODE_ENV === "production"){
+   //server static content
+   app.use(express.static(path.join(__dirname, 'client/build')));
+   
+}
+// console.log(__dirname);
+// console.log(path.join(__dirname, 'client/build'));
 
 
 const port = process.env.port || 3000;
