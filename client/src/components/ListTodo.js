@@ -24,7 +24,7 @@ const ListTodo = () =>{
       
         try{
 
-        const response = await fetch("http://perntodop.herokuapp.com/todos");
+        const response = await fetch("/todos");
         const jsonData = await response.json();
 
         setTodo(jsonData);

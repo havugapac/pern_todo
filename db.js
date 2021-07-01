@@ -13,7 +13,7 @@ const devConfig = {
 }
 
 const proConfig = {
-    connectionString: process.env.DATABASE_URL  //heroku addons
+    connectionString: process.env.PRO_DATABASE  //heroku addons
 }
 
 const pool = new Pool(
